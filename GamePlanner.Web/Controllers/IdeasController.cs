@@ -92,12 +92,23 @@ namespace GamePlanner.Web.Controllers
 
             var idea = await this.ideaRepository.GetByIdAsync(id.Value);
 
+            var viewModel = new IdeasViewModel()
+            {
+                Description = idea.Description,
+                Features = idea.Features,
+                GenderId = idea.GenderId,
+                Genders = this.GetComboGenders(),
+                Id = idea.Id,
+                PublicId = idea.PublicId,
+                Publics = this.GetComboPublic()
+            };
+
             if (idea == null)
             {
                 return NotFound();
             }
 
-            return View(idea);
+            return View(viewModel);
         }
 
         // POST: Ideas/Edit/5
@@ -105,7 +116,7 @@ namespace GamePlanner.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Idea idea)
+        public async Task<IActionResult> Edit(int id, IdeasViewModel idea)
         {
             if (id != idea.Id)
             {
@@ -116,7 +127,16 @@ namespace GamePlanner.Web.Controllers
             {
                 try
                 {
-                    await this.ideaRepository.UpdateAsync(idea);
+                    Idea ideaToUpdate = new Idea()
+                    {
+                        Description = idea.Description,
+                        Features = idea.Features,
+                        GenderId = idea.GenderId,
+                        PublicId = idea.PublicId,
+                        Id = id
+                    };
+
+                    await this.ideaRepository.UpdateAsync(ideaToUpdate);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

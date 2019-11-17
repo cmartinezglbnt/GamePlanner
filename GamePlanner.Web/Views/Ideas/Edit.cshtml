@@ -1,4 +1,4 @@
-﻿@model GamePlanner.Web.Data.Entities.Idea
+﻿@model GamePlanner.Web.Models.IdeasViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -14,6 +14,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
+                <label asp-for="GenderId" class="control-label"></label>
+                <select asp-for="GenderId" asp-items="Model.Genders" class="form-control"></select>
+                <span asp-validation-for="GenderId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicId" class="control-label"></label>
+                <select asp-for="PublicId" asp-items="Model.Publics" class="form-control"></select>
+                <span asp-validation-for="PublicId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -22,11 +32,6 @@
                 <label asp-for="Features" class="control-label"></label>
                 <input asp-for="Features" class="form-control" />
                 <span asp-validation-for="Features" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegistrationDate" class="control-label"></label>
-                <input asp-for="RegistrationDate" class="form-control" />
-                <span asp-validation-for="RegistrationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
