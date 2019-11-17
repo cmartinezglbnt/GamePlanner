@@ -38,23 +38,36 @@ namespace GamePlanner.Web.Controllers
                 return NotFound();
             }
 
-            var idea = this.ideaRepository.GetByIdAsync(id.Value);
+            var idea = await this.ideaRepository.GetByIdAsync(id.Value);
+
+            var viewModel = new IdeasViewModel()
+            {
+                Description = idea.Description,
+                Features = idea.Features,
+                GenderId = idea.GenderId,
+                Genders = this.GetComboGenders(),
+                Id = idea.Id,
+                PublicId = idea.PublicId,
+                Publics = this.GetComboPublic()
+            };
 
             if (idea == null)
             {
                 return NotFound();
             }
 
-            return View(idea);
+            return View(viewModel);
         }
 
         // GET: Ideas/Create
         public IActionResult Create()
         {
-            var ideaModel = new IdeasViewModel();
-            ideaModel.Genders = this.GetComboGenders();
-            ideaModel.Publics = this.GetComboPublic();
-
+            var ideaModel = new IdeasViewModel()
+            {
+                Genders = this.GetComboGenders(),
+                Publics = this.GetComboPublic()
+            };
+            
             return View(ideaModel);
         }
 
