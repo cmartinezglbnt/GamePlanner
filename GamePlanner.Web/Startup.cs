@@ -32,6 +32,9 @@ namespace GamePlanner.Web
 
             services.AddTransient<SeedDb>();
             services.AddScoped<ITechnologyRepository, TechnologyRepository>();
+            services.AddScoped<IPublicRepository, PublicRepository>();
+            services.AddScoped<IGenderRepository, GenderRepository>();
+            services.AddScoped<IIdeaRepository, IdeaRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
