@@ -11,8 +11,10 @@ namespace GamePlanner.Web.Data.Entities
     {
         public int Id { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public string Features { get; set; }
 
         [Display(Name = "Gender")]
