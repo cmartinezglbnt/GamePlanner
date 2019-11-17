@@ -11,6 +11,8 @@ namespace GamePlanner.Web.Models
 {
     public class IdeasViewModel
     {
+        public int Id { get; set; }
+
         public string Description { get; set; }
 
         public string Features { get; set; }

@@ -153,16 +153,6 @@ namespace GamePlanner.Web.Controllers
                 return NotFound();
             }
 
-            return View(idea);
-        }
-
-        // POST: Ideas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var idea = await this.ideaRepository.GetByIdAsync(id);
-
             await this.ideaRepository.DeleteAsync(idea);
             return RedirectToAction(nameof(Index));
         }
