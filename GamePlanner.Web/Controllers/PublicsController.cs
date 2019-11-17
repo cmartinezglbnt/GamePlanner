@@ -10,61 +10,62 @@ using GamePlanner.Web.Data;
 
 namespace GamePlanner.Web.Controllers
 {
-    public class GendersController : Controller
+    public class PublicsController : Controller
     {
-        private readonly IGenderRepository genderRepository;
+        private readonly IPublicRepository publicRepository;
 
-        public GendersController(IGenderRepository genderRepository)
+        public PublicsController(IPublicRepository publicRepository)
         {
-            this.genderRepository = genderRepository;
+            this.publicRepository = publicRepository;
         }
 
-        // GET: Genders
+        // GET: Publics
         public IActionResult Index()
         {
-            return View(this.genderRepository.GetAll().OrderBy(x => x.Name));
+            return View(this.publicRepository.GetAll().OrderBy(x => x.Name));
         }
 
-        // GET: Genders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Publics/Details/5
+        public async Task<IActionResult >Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var gender = await this.genderRepository.GetByIdAsync(id.Value);
+            var currentPublic = await this.publicRepository.GetByIdAsync(id.Value);
 
-            if (gender == null)
+            if (currentPublic == null)
             {
                 return NotFound();
             }
 
-            return View(gender);
+            return View(currentPublic);
         }
 
-        // GET: Genders/Create
+        // GET: Publics/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Genders/Create
+        // POST: Publics/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Gender gender)
+        public async Task<IActionResult> Create(Public currentPublic)
         {
             if (ModelState.IsValid)
             {
-                await this.genderRepository.CreateAsync(gender);
+                await this.publicRepository.CreateAsync(currentPublic);
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(gender);
+            return View(currentPublic);
         }
 
-        // GET: Genders/Edit/5
+        // GET: Publics/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +73,24 @@ namespace GamePlanner.Web.Controllers
                 return NotFound();
             }
 
-            var gender = await this.genderRepository.GetByIdAsync(id.Value);
-            if (gender == null)
+            var currentPublic = await this.publicRepository.GetByIdAsync(id.Value);
+
+            if (currentPublic == null)
             {
                 return NotFound();
             }
-            return View(gender);
+
+            return View(currentPublic);
         }
 
-        // POST: Genders/Edit/5
+        // POST: Publics/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Gender gender)
+        public async Task<IActionResult> Edit(int id, Public currentPublic)
         {
-            if (id != gender.Id)
+            if (id != currentPublic.Id)
             {
                 return NotFound();
             }
@@ -96,13 +99,13 @@ namespace GamePlanner.Web.Controllers
             {
                 try
                 {
-                    await this.genderRepository.UpdateAsync(gender);
+                    await this.publicRepository.UpdateAsync(currentPublic);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    var currentGender = this.genderRepository.GetByIdAsync(id);
+                    var tempPublic = this.publicRepository.GetByIdAsync(currentPublic.Id);
 
-                    if (currentGender == null)
+                    if (tempPublic == null)
                     {
                         return NotFound();
                     }
@@ -113,10 +116,11 @@ namespace GamePlanner.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gender);
+
+            return View(currentPublic);
         }
 
-        // GET: Genders/Delete/5
+        // GET: Publics/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,15 +128,14 @@ namespace GamePlanner.Web.Controllers
                 return NotFound();
             }
 
-            var gender = await this.genderRepository.GetByIdAsync(id.Value);
+            var currentPublic = await this.publicRepository.GetByIdAsync(id.Value);
 
-            if (gender == null)
+            if (currentPublic == null)
             {
                 return NotFound();
             }
 
-            await this.genderRepository.DeleteAsync(gender);
-
+            await this.publicRepository.DeleteAsync(currentPublic);
             return RedirectToAction(nameof(Index));
         }
     }
