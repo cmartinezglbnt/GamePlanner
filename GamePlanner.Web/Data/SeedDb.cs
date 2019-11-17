@@ -46,6 +46,7 @@
                 this.AddGender("Simulation", "Flights, instrumental, driving, among others. Allow to the user to experiment how something works like in real life.");
                 this.AddGender("Table games", "Cheese, Skills, questions and answers, etcetera.");
                 this.AddGender("Music games", "Games focused to interact between the player with music and follow music patterns.");
+                await this.context.SaveChangesAsync();
             }
 
             if (!this.context.Public.Any())
@@ -57,6 +58,7 @@
                 this.AddPublic("Mature 17+ (M 17+)", "Games focused to people with 17+ years old.");
                 this.AddPublic("Adults Only 17+ (AO 18+)", "Games focused to people with 18+ years old.");
                 this.AddPublic("Rating Pending (RP)", "Waiting for a final rating.");
+                await this.context.SaveChangesAsync();
             }
         }
 

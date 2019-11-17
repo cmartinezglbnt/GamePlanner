@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GamePlanner.Web.Data.Entities;
 using GamePlanner.Web.Data;
+using GamePlanner.Web.Models;
 
 namespace GamePlanner.Web.Controllers
 {
     public class IdeasController : Controller
     {
         private readonly IIdeaRepository ideaRepository;
+        private readonly IGenderRepository genderRepository;
+        private readonly IPublicRepository publicRepository;
 
-        public IdeasController(IIdeaRepository ideaRepository)
+        public IdeasController(IIdeaRepository ideaRepository, IGenderRepository genderRepository, IPublicRepository publicRepository)
         {
             this.ideaRepository = ideaRepository;
+            this.genderRepository = genderRepository;
+            this.publicRepository = publicRepository;
         }
 
         // GET: Ideas
@@ -46,7 +51,11 @@ namespace GamePlanner.Web.Controllers
         // GET: Ideas/Create
         public IActionResult Create()
         {
-            return View();
+            var ideaModel = new IdeasViewModel();
+            ideaModel.Genders = this.GetComboGenders();
+            ideaModel.Publics = this.GetComboPublic();
+
+            return View(ideaModel);
         }
 
         // POST: Ideas/Create
@@ -54,11 +63,19 @@ namespace GamePlanner.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,Features,RegistrationDate")] Idea idea)
+        public async Task<IActionResult> Create(IdeasViewModel idea)
         {
             if (ModelState.IsValid)
             {
-                await this.ideaRepository.CreateAsync(idea);
+                Idea ideaToSave = new Idea()
+                {
+                    Description = idea.Description,
+                    Features = idea.Features,
+                    GenderId = idea.GenderId,
+                    PublicId = idea.PublicId
+                };
+
+                await this.ideaRepository.CreateAsync(ideaToSave);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -88,7 +105,7 @@ namespace GamePlanner.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,Features,RegistrationDate")] Idea idea)
+        public async Task<IActionResult> Edit(int id, Idea idea)
         {
             if (id != idea.Id)
             {
@@ -148,6 +165,44 @@ namespace GamePlanner.Web.Controllers
 
             await this.ideaRepository.DeleteAsync(idea);
             return RedirectToAction(nameof(Index));
+        }
+
+        private IEnumerable<SelectListItem> GetComboGenders()
+        {
+            List<Gender> genderList = this.genderRepository.GetAll().ToList();
+
+            var list = genderList.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }).OrderBy(l => l.Text).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        private IEnumerable<SelectListItem> GetComboPublic()
+        {
+            List<Public> publicList = this.publicRepository.GetAll().ToList();
+
+            var list = publicList.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }).OrderBy(l => l.Text).ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select...)",
+                Value = "0"
+            });
+
+            return list;
         }
     }
 }
