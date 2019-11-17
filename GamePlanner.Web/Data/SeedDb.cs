@@ -36,6 +36,28 @@
                 this.AddTechnology("Nintendo Switch", "Console");
                 await this.context.SaveChangesAsync();
             }
+
+            if (!this.context.Gender.Any())
+            {
+                this.AddGender("Action", "Fight games based on repetitive actions.");
+                this.AddGender("Arcade", "Platforms, labyrinths and adventures. The user must pass screens to keep playing.");
+                this.AddGender("Sport", "Football, tennis, basketball, driving, among others.");
+                this.AddGender("Strategy", "Adventures, roles, war games. Consists to create and strategy to win to your opponent.");
+                this.AddGender("Simulation", "Flights, instrumental, driving, among others. Allow to the user to experiment how something works like in real life.");
+                this.AddGender("Table games", "Cheese, Skills, questions and answers, etcetera.");
+                this.AddGender("Music games", "Games focused to interact between the player with music and follow music patterns.");
+            }
+
+            if (!this.context.Public.Any())
+            {
+                this.AddPublic("Early Childhood (EC)", "Games focused to children with 3+ years old.");
+                this.AddPublic("Everyone (E)", "Games focused to children with 6+ years old.");
+                this.AddPublic("Everyone 10+ (E10+)", "Games focused to with between 10+ years old.");
+                this.AddPublic("Teen (T)", "Games focused to people with 13+ years old.");
+                this.AddPublic("Mature 17+ (M 17+)", "Games focused to people with 17+ years old.");
+                this.AddPublic("Adults Only 17+ (AO 18+)", "Games focused to people with 18+ years old.");
+                this.AddPublic("Rating Pending (RP)", "Waiting for a final rating.");
+            }
         }
 
         private void AddTechnology(string name, string type)
@@ -44,6 +66,24 @@
             {
                 Name = name,
                 Type = type
+            });
+        }
+
+        private void AddGender(string name, string description)
+        {
+            this.context.Gender.Add(new Entities.Gender
+            {
+                Name = name,
+                Description = description
+            });
+        }
+
+        private void AddPublic(string name, string description)
+        {
+            this.context.Public.Add(new Entities.Public
+            {
+                Name = name,
+                Description = description
             });
         }
     }
