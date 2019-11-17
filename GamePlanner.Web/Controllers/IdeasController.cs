@@ -27,7 +27,7 @@ namespace GamePlanner.Web.Controllers
         // GET: Ideas
         public IActionResult Index()
         {
-            return View(ideaRepository.GetAll().OrderBy(x => x.RegistrationDate));
+            return View(ideaRepository.GetAllIdeas());
         }
 
         // GET: Ideas/Details/5
