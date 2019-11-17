@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29123.89
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePlanner.Common", "GamePlanner.Common\GamePlanner.Common.csproj", "{33E85303-D03B-40BB-BE3E-D5E2DB86ADB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePlanner.Web", "GamePlanner.Web\GamePlanner.Web.csproj", "{375F0FEE-C866-4452-B1BB-78324A858136}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePlanner.Web", "GamePlanner.Web\GamePlanner.Web.csproj", "{23BDA6F8-8249-4983-9AD7-3DCDF9884F78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{33E85303-D03B-40BB-BE3E-D5E2DB86ADB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33E85303-D03B-40BB-BE3E-D5E2DB86ADB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33E85303-D03B-40BB-BE3E-D5E2DB86ADB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{375F0FEE-C866-4452-B1BB-78324A858136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{375F0FEE-C866-4452-B1BB-78324A858136}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{375F0FEE-C866-4452-B1BB-78324A858136}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{375F0FEE-C866-4452-B1BB-78324A858136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23BDA6F8-8249-4983-9AD7-3DCDF9884F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23BDA6F8-8249-4983-9AD7-3DCDF9884F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23BDA6F8-8249-4983-9AD7-3DCDF9884F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23BDA6F8-8249-4983-9AD7-3DCDF9884F78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
