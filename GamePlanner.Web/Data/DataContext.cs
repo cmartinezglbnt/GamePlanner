@@ -10,6 +10,14 @@ public class DataContext : DbContext
     public DbSet<Public> Public { get; set; }
     public DbSet<Gender> Gender { get; set; }
     public DbSet<Idea> Idea { get; set; }
+    public DbSet<Client> Client { get; set; }
+    public DbSet<Concept> Concept { get; set; }
+    public DbSet<Developer> Developer { get; set; }
+    public DbSet<GamePlay> GamePlay { get; set; }
+    public DbSet<Meeting> Meeting { get; set; }
+    public DbSet<Platform> Platform { get; set; }
+    public DbSet<Producer> Producer { get; set; }
+    public DbSet<Tool> Tool { get; set; }
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
