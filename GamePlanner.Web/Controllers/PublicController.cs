@@ -10,11 +10,11 @@ using GamePlanner.Web.Data;
 
 namespace GamePlanner.Web.Controllers
 {
-    public class PublicsController : Controller
+    public class PublicController : Controller
     {
         private readonly IPublicRepository publicRepository;
 
-        public PublicsController(IPublicRepository publicRepository)
+        public PublicController(IPublicRepository publicRepository)
         {
             this.publicRepository = publicRepository;
         }

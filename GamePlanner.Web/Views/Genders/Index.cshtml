@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<GamePlanner.Web.Data.Entities.Gender>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Genders";
 }
 
-<h1>Index</h1>
+<h1>Genders</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,8 +32,8 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td style="min-width:260px">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> 
                     <a asp-action="Delete" data-item-id="@item.Id" asp-route-id="@item.Id" class="btn btn-danger" id="btnDeleteItem">Delete</a>
                 </td>
             </tr>

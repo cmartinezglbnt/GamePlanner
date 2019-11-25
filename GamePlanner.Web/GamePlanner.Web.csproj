@@ -25,4 +25,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\Pictures\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\characters.jpg" />
+    <None Include="wwwroot\images\gpp1.JPG" />
+    <None Include="wwwroot\images\gpp2.JPG" />
+  </ItemGroup>
+
 </Project>
