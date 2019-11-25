@@ -1,7 +1,9 @@
 ﻿namespace GamePlanner.Web.Data
 {
     using Entities;
-    public interface IGenderRepository : IGenericRepository<Gender>
+
+    public interface IClientRepository : IGenericRepository<Client>
     {
     }
+
 }
