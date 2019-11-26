@@ -81,7 +81,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RegistrationDate)
                 </td>
-                <td>
+                <td style="min-width: 260px;width: 260px;">
                     <a asp-controller="Ideas" asp-action="Edit" asp-route-meetingId="@Model.Id" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
                     <a asp-controller="Ideas" asp-action="Details" asp-route-meetingId="@Model.Id" asp-route-id="@item.Id" class="btn btn-info">Details</a>
                     <a asp-controller="Ideas" asp-action="Delete" data-item-id="@item.Id" asp-route-meetingId="@Model.Id" asp-route-id="@item.Id" class="btn btn-danger" id="btnDeleteItem">Delete</a>

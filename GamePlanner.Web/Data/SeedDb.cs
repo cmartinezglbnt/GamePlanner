@@ -68,6 +68,26 @@
                 this.AddMeeting(4, "Mairim Verson, Ibis Barrios, Alain Maldonado, Leo Villalonga");
                 await this.context.SaveChangesAsync();
             }
+
+            if(!this.context.Idea.Any())
+            {
+                this.AddIdea("Test Idea 1", "test Features 1", 1, 1, 1);
+                this.AddIdea("Test Idea 2", "test Features 2", 2, 2, 2);
+                await this.context.SaveChangesAsync();
+            }
+        }
+
+        private void AddIdea(string description, string features, int genderId, int meetingId, int publicId)
+        {
+            this.context.Idea.Add(new Entities.Idea
+            {
+                Description = description,
+                Features = features,
+                GenderId = genderId,
+                MeetingId = meetingId,
+                PublicId = publicId,
+                RegistrationDate = DateTime.Now
+            });
         }
 
         private void AddMeeting(int totalParticipants, string participants)
