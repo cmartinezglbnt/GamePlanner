@@ -3,74 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GamePlanner.Web.Migrations
 {
-    public partial class AddEntities : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Type",
-                table: "Technology",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Technology",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Public",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Description",
-                table: "Public",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Features",
-                table: "Idea",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Description",
-                table: "Idea",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Gender",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Description",
-                table: "Gender",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Client",
                 columns: table => new
@@ -132,6 +68,20 @@ namespace GamePlanner.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Gender",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gender", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Meeting",
                 columns: table => new
                 {
@@ -139,7 +89,7 @@ namespace GamePlanner.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Num_Participants = table.Column<int>(nullable: false),
                     Participants = table.Column<string>(nullable: true),
-                    Fecha = table.Column<DateTime>(nullable: false)
+                    RegistrationDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -177,6 +127,34 @@ namespace GamePlanner.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Public",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Public", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Technology",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Type = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Technology", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tool",
                 columns: table => new
                 {
@@ -189,6 +167,46 @@ namespace GamePlanner.Web.Migrations
                 {
                     table.PrimaryKey("PK_Tool", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Idea",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(nullable: false),
+                    Features = table.Column<string>(nullable: false),
+                    MeetingId = table.Column<int>(nullable: false),
+                    GenderId = table.Column<int>(nullable: false),
+                    PublicId = table.Column<int>(nullable: false),
+                    RegistrationDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Idea", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Idea_Gender_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Gender",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Idea_Public_PublicId",
+                        column: x => x.PublicId,
+                        principalTable: "Public",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Idea_GenderId",
+                table: "Idea",
+                column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Idea_PublicId",
+                table: "Idea",
+                column: "PublicId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -206,6 +224,9 @@ namespace GamePlanner.Web.Migrations
                 name: "GamePlay");
 
             migrationBuilder.DropTable(
+                name: "Idea");
+
+            migrationBuilder.DropTable(
                 name: "Meeting");
 
             migrationBuilder.DropTable(
@@ -215,63 +236,16 @@ namespace GamePlanner.Web.Migrations
                 name: "Producer");
 
             migrationBuilder.DropTable(
+                name: "Technology");
+
+            migrationBuilder.DropTable(
                 name: "Tool");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Type",
-                table: "Technology",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
+            migrationBuilder.DropTable(
+                name: "Gender");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Technology",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Public",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Description",
-                table: "Public",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Features",
-                table: "Idea",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Description",
-                table: "Idea",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Gender",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Description",
-                table: "Gender",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string));
+            migrationBuilder.DropTable(
+                name: "Public");
         }
     }
 }

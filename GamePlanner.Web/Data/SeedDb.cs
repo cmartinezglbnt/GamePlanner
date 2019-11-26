@@ -60,6 +60,24 @@
                 this.AddPublic("Rating Pending (RP)", "Waiting for a final rating.");
                 await this.context.SaveChangesAsync();
             }
+
+            if(!this.context.Meeting.Any())
+            {
+                this.AddMeeting(3, "Johann Jimenez, Fabio Martinez, Cristian Florez");
+                this.AddMeeting(2, "Alex Naranjo, Salvador Roque");
+                this.AddMeeting(4, "Mairim Verson, Ibis Barrios, Alain Maldonado, Leo Villalonga");
+                await this.context.SaveChangesAsync();
+            }
+        }
+
+        private void AddMeeting(int totalParticipants, string participants)
+        {
+            this.context.Meeting.Add(new Entities.Meeting
+            {
+                Num_Participants = totalParticipants,
+                Participants = participants,
+                RegistrationDate = DateTime.Now
+            });
         }
 
         private void AddTechnology(string name, string type)

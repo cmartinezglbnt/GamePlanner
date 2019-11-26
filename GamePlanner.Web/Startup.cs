@@ -35,6 +35,15 @@ namespace GamePlanner.Web
             services.AddScoped<IPublicRepository, PublicRepository>();
             services.AddScoped<IGenderRepository, GenderRepository>();
             services.AddScoped<IIdeaRepository, IdeaRepository>();
+            services.AddScoped<IMeetingRepository, MeetingRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IConceptRepository, ConceptRepository>();
+            services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+            services.AddScoped<IGamePlayRepository, GamePlayRepository>();
+            services.AddScoped<IPlatformRepository, PlatformRepository>();
+            services.AddScoped<IProducerRepository, ProducerRepository>();
+            services.AddScoped<IConceptRepository, ConceptRepository>();
+            services.AddScoped<IToolRepository, ToolRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

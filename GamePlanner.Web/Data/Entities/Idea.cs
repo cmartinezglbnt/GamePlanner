@@ -17,6 +17,8 @@ namespace GamePlanner.Web.Data.Entities
         [Required]
         public string Features { get; set; }
 
+        public int MeetingId { get; set; }
+
         [Display(Name = "Gender")]
         public int GenderId { get; set; }
 

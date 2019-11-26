@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePlanner.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191125044218_AddEntities")]
-    partial class AddEntities
+    [Migration("20191126014721_InitialDb")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,6 +142,9 @@ namespace GamePlanner.Web.Migrations
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MeetingId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PublicId")
                         .HasColumnType("int");
 
@@ -164,14 +167,14 @@ namespace GamePlanner.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Num_Participants")
                         .HasColumnType("int");
 
                     b.Property<string>("Participants")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

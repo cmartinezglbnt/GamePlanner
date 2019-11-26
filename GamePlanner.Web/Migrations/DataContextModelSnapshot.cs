@@ -140,6 +140,9 @@ namespace GamePlanner.Web.Migrations
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MeetingId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PublicId")
                         .HasColumnType("int");
 
@@ -162,14 +165,14 @@ namespace GamePlanner.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Num_Participants")
                         .HasColumnType("int");
 
                     b.Property<string>("Participants")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
