@@ -19,6 +19,8 @@ namespace GamePlanner.Web.Data.Entities
 
         public int MeetingId { get; set; }
 
+        public Meeting Meeting { get; set; }
+
         [Display(Name = "Gender")]
         public int GenderId { get; set; }
 

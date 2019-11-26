@@ -33,6 +33,8 @@ namespace GamePlanner.Web.Controllers
         // GET: Ideas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            int meetingId = Convert.ToInt32(HttpContext.Request.Query["meetingId"].ToString());
+
             if (id == null)
             {
                 return NotFound();
@@ -48,7 +50,8 @@ namespace GamePlanner.Web.Controllers
                 Genders = this.GetComboGenders(),
                 Id = idea.Id,
                 PublicId = idea.PublicId,
-                Publics = this.GetComboPublic()
+                Publics = this.GetComboPublic(),
+                MeetingId = meetingId
             };
 
             if (idea == null)
@@ -62,10 +65,13 @@ namespace GamePlanner.Web.Controllers
         // GET: Ideas/Create
         public IActionResult Create()
         {
+            int meetingId = Convert.ToInt32(HttpContext.Request.Query["meetingId"].ToString());
+
             var ideaModel = new IdeasViewModel()
             {
                 Genders = this.GetComboGenders(),
-                Publics = this.GetComboPublic()
+                Publics = this.GetComboPublic(),
+                MeetingId = meetingId
             };
             
             return View(ideaModel);
@@ -85,11 +91,12 @@ namespace GamePlanner.Web.Controllers
                     Description = idea.Description,
                     Features = idea.Features,
                     GenderId = idea.GenderId,
-                    PublicId = idea.PublicId
+                    PublicId = idea.PublicId,
+                    MeetingId = idea.MeetingId
                 };
 
                 await this.ideaRepository.CreateAsync(ideaToSave);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Meetings", new { id = ideaToSave.MeetingId });
             }
 
             return View(idea);
@@ -98,6 +105,8 @@ namespace GamePlanner.Web.Controllers
         // GET: Ideas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            int meetingId = Convert.ToInt32(HttpContext.Request.Query["meetingId"].ToString());
+
             if (id == null)
             {
                 return NotFound();
@@ -113,7 +122,8 @@ namespace GamePlanner.Web.Controllers
                 Genders = this.GetComboGenders(),
                 Id = idea.Id,
                 PublicId = idea.PublicId,
-                Publics = this.GetComboPublic()
+                Publics = this.GetComboPublic(),
+                MeetingId = meetingId
             };
 
             if (idea == null)
@@ -146,7 +156,8 @@ namespace GamePlanner.Web.Controllers
                         Features = idea.Features,
                         GenderId = idea.GenderId,
                         PublicId = idea.PublicId,
-                        Id = id
+                        Id = id,
+                        MeetingId = idea.MeetingId
                     };
 
                     await this.ideaRepository.UpdateAsync(ideaToUpdate);
@@ -165,7 +176,7 @@ namespace GamePlanner.Web.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Meetings", new { id = idea.MeetingId });
             }
 
             return View(idea);
@@ -187,7 +198,7 @@ namespace GamePlanner.Web.Controllers
             }
 
             await this.ideaRepository.DeleteAsync(idea);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Meetings", new { id = idea.MeetingId });
         }
 
         private IEnumerable<SelectListItem> GetComboGenders()

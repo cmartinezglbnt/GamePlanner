@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GamePlanner.Web.Data.Entities;
 using GamePlanner.Web.Data;
+using GamePlanner.Web.Models;
 
 namespace GamePlanner.Web.Controllers
 {
     public class MeetingsController : Controller
     {
         private readonly IMeetingRepository meetingRepository;
+        private readonly IIdeaRepository ideaRepository;
 
-        public MeetingsController(IMeetingRepository meetingRepository)
+        public MeetingsController(IMeetingRepository meetingRepository, IIdeaRepository ideaRepository)
         {
             this.meetingRepository = meetingRepository;
+            this.ideaRepository = ideaRepository;
         }
 
         // GET: Meetings
@@ -40,7 +43,18 @@ namespace GamePlanner.Web.Controllers
                 return NotFound();
             }
 
-            return View(meeting);
+            var ideas = this.ideaRepository.GetAllIdeasByMeeting(meeting.Id);
+
+            var meetingViewModel = new MeetingViewModel()
+            {
+                Id = meeting.Id,
+                Ideas = ideas,
+                Num_Participants = meeting.Num_Participants,
+                Participants = meeting.Participants,
+                RegistrationDate = meeting.RegistrationDate
+            };
+
+            return View(meetingViewModel);
         }
 
         // GET: Meetings/Create

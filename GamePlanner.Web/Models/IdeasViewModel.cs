@@ -13,6 +13,8 @@ namespace GamePlanner.Web.Models
     {
         public int Id { get; set; }
 
+        public int MeetingId { get; set; }
+
         [Required]
         public string Description { get; set; }
 

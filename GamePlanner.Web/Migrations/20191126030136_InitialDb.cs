@@ -191,6 +191,12 @@ namespace GamePlanner.Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Idea_Meeting_MeetingId",
+                        column: x => x.MeetingId,
+                        principalTable: "Meeting",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Idea_Public_PublicId",
                         column: x => x.PublicId,
                         principalTable: "Public",
@@ -202,6 +208,11 @@ namespace GamePlanner.Web.Migrations
                 name: "IX_Idea_GenderId",
                 table: "Idea",
                 column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Idea_MeetingId",
+                table: "Idea",
+                column: "MeetingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Idea_PublicId",
@@ -227,9 +238,6 @@ namespace GamePlanner.Web.Migrations
                 name: "Idea");
 
             migrationBuilder.DropTable(
-                name: "Meeting");
-
-            migrationBuilder.DropTable(
                 name: "Platform");
 
             migrationBuilder.DropTable(
@@ -243,6 +251,9 @@ namespace GamePlanner.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Gender");
+
+            migrationBuilder.DropTable(
+                name: "Meeting");
 
             migrationBuilder.DropTable(
                 name: "Public");

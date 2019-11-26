@@ -6,6 +6,8 @@
     public interface IIdeaRepository : IGenericRepository<Idea>
     {
         public IQueryable<Idea> GetAllIdeas();
+
+        public IQueryable<Idea> GetAllIdeasByMeeting(int meetingId);
     }
 
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePlanner.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191126014721_InitialDb")]
+    [Migration("20191126030136_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,6 +155,8 @@ namespace GamePlanner.Web.Migrations
 
                     b.HasIndex("GenderId");
 
+                    b.HasIndex("MeetingId");
+
                     b.HasIndex("PublicId");
 
                     b.ToTable("Idea");
@@ -286,6 +288,12 @@ namespace GamePlanner.Web.Migrations
                     b.HasOne("GamePlanner.Web.Data.Entities.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GamePlanner.Web.Data.Entities.Meeting", "Meeting")
+                        .WithMany()
+                        .HasForeignKey("MeetingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
